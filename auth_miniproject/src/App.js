@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
@@ -7,9 +7,23 @@ import MainHeader from './components/MainHeader/MainHeader';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  
+  useEffect(() => { // this will only run once, when the app starts since the dependencies never change,
+    // since there are NO dependencies (in the empty array arg below)
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+  
+    if (storedUserLoggedInInformation === '1') { 
+      setIsLoggedIn(true); // we need to execute this inside useEffect() to avoid an infinite loop
+    }
+
+  }, []);
+
   const loginHandler = (email, password) => {
     // We should of course check email and password
     // But it's just a dummy/ demo anyways
+    localStorage.setItem('isLoggedIn', '1'); // 1 is meant to be "loggedIn" and 0 will be "notLoggedIn" 
+    // takes 2 string args
+    // this is a storage object available in the browser (independenct of React)
     setIsLoggedIn(true);
   };
 
