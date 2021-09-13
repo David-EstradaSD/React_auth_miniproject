@@ -12,9 +12,25 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    console.log('Effect running');
+
+      return () => {
+
+      };
+  }, []);
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log('Checking form validity!');
+      setFormIsValid( // this code will only run once 
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      ); 
+    }, 500);
+
+    return () => {
+      console.log('Cleanup');
+      clearTimeout(identifier); // we clear the last timer before we set a new timer 
+    };
   }, [enteredEmail, enteredPassword]); // we want to re-evaluate this setFormIsValid with every keystroke
   // rule of thumb: we add as dependencies, what we're using in our useEffect function aka (setFormIsValid, enteredEmail, enteredPassword)
   // if any of the 3 change
