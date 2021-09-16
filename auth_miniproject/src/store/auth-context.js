@@ -40,7 +40,7 @@ export const AuthContextProvider = (props) => {
         onLogout: logoutHandler,
         onLogin: loginHandler,
       }}>
-      {PaymentResponse.children}
+      {props.children}
     </AuthContext.Provider>
   );
 };
