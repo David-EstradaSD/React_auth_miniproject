@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
-import { useContext } from 'react/cjs/react.development';
 import AuthContext from '../../store/auth-context';
 
 const emailReducer = (state, action) => { // This is our Reducer function. What we dispatch as an "action" will be an object per what we define in our dispatch function below  
@@ -99,7 +98,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authContext.onLogin(emailState.value, passwordState.value);
   };
 
   return (
